@@ -39,13 +39,64 @@ const account = {
     psw: 111,
     balance: 100,
     accountNumber: 123,
-    confirm: function() {},
-    getBalance: function() {},
-    deposit: function() {},
-    withdrawal: function() {},
-    getaccountName: function() {},
-    accountError: function() {},
-    exitAccount: function() {}
+    // confirm: function() {
+    //     let user = parseInt(prompt('please enter account number'));
+    //     let password = parseInt(prompt('please enter password'));
+    //     if (password === account.psw && user === account.accountNumber) {
+    //         program(main());
+    //         return;
+    //     }
+    //     accountError();
+    //     confirm();
+    // },
+    getBalance: function() {
+        alert(`account balance ${account.balance}kr`);
+        program(main());
+    },
+    deposit: function() {
+        let num = parseInt(prompt(`please enter deposit amount`));
+        if (isNaN(num) || num <= 0 || num === "") {
+            alert(`please enter valid number`);
+            this.deposit();
+        } else {
+            num = num + account.balance;
+            alert(`your current balance is ${num}kr`);
+            account.balance = num;
+            program(main());
+        }
+    },
+    withdrawal: function() {
+        let num = parseInt(prompt(`please enter withdrawal amount`));
+        if (isNaN(num) || num <= 0 || num === "") {
+            alert(`please enter valid number`);
+            account.withdrawal();
+        } else if (account.compare(num, account.balance)) {
+            alert('insufficient account balance');
+            account.withdrawal();
+        } else {
+            account.balance = account.balance - num;
+            alert(`account balance is${account.balance}kr`);
+
+            program(main());
+        }
+    },
+    compare: function(a, b) {
+        if (a > b) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    getAccountName: function() {
+        alert(`account${account.accountNumber} account holder is ${account.accountName}`);
+        program(main());
+    },
+    accountError: function() { alert(`error`); },
+    exitAccount: function() {
+        alert(`log out account`);
+
+        window.close();
+    }
 }
 
 function confirm() {
@@ -55,7 +106,7 @@ function confirm() {
         program(main());
         return;
     }
-    accountError();
+    account.accountError();
     confirm();
 }
 
@@ -67,19 +118,19 @@ function main() {
 function program(num) {
     switch (num) {
         case 1:
-            deposit();
+            account.deposit();
             break;
         case 2:
-            withdrawal();
+            account.withdrawal();
             break;
         case 3:
-            getBalance();
+            account.getBalance();
             break;
         case 4:
-            getAccountName();
+            account.getAccountName();
             break;
         default:
-            exitAccount();
+            account.exitAccount();
     }
 }
 
@@ -95,66 +146,66 @@ function program(num) {
 //     return false;
 // }
 
-function getBalance() {
-    alert(`account balance ${account.balance}kr`);
-    program(main());
-}
+// function getBalance() {
+//     alert(`account balance ${account.balance}kr`);
+//     program(main());
+// }
 
-function deposit() {
-    let num = parseInt(prompt(`please enter deposit amount`));
-    if (isNaN(num) || num <= 0 || num === "") {
-        alert(`please enter valid number`);
-        this.deposit();
-    } else {
-        num = num + account.balance;
-        alert(`your current balance is ${num}kr`);
-        account.balance = num;
-        program(main());
-    }
-}
-
-
-
-function withdrawal() {
-    let num = parseInt(prompt(`please enter withdrawal amount`));
-    if (isNaN(num) || num <= 0 || num === "") {
-        alert(`please enter valid number`);
-        this.withdrawal();
-    } else if (compare(num, account.balance)) {
-        alert('insufficient account balance');
-        withdrawal();
-    } else {
-        account.balance = account.balance - num;
-        alert(`account balance is${account.balance}kr`);
-
-        program(main());
-    }
-}
-
-function compare(a, b) {
-    if (a > b) {
-        return true;
-    } else {
-        return false;
-    }
-}
+// function deposit() {
+//     let num = parseInt(prompt(`please enter deposit amount`));
+//     if (isNaN(num) || num <= 0 || num === "") {
+//         alert(`please enter valid number`);
+//         this.deposit();
+//     } else {
+//         num = num + account.balance;
+//         alert(`your current balance is ${num}kr`);
+//         account.balance = num;
+//         program(main());
+//     }
+// }
 
 
-function getAccountName() {
-    alert(`account${account.accountNumber} account holder is ${account.accountName}`);
-    program(main());
-}
 
-function accountError() {
-    alert(`error`);
-}
+// function withdrawal() {
+//     let num = parseInt(prompt(`please enter withdrawal amount`));
+//     if (isNaN(num) || num <= 0 || num === "") {
+//         alert(`please enter valid number`);
+//         this.withdrawal();
+//     } else if (compare(num, account.balance)) {
+//         alert('insufficient account balance');
+//         withdrawal();
+//     } else {
+//         account.balance = account.balance - num;
+//         alert(`account balance is${account.balance}kr`);
 
-function exitAccount() {
-    alert(`log out account`);
+//         program(main());
+//     }
+// }
 
-    window.close();
+// function compare(a, b) {
+//     if (a > b) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
 
-}
+
+// function getAccountName() {
+//     alert(`account${account.accountNumber} account holder is ${account.accountName}`);
+//     program(main());
+// }
+
+// function accountError() {
+//     alert(`error`);
+// }
+
+// function exitAccount() {
+//     alert(`log out account`);
+
+//     window.close();
+
+// }
 
 
 //answer
